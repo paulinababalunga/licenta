@@ -12,7 +12,7 @@ $pwd2 = $_POST['pwd2'];
 
 if ($_POST["pwd1"] == $_POST["pwd2"] && $_POST["pwd1"] != "" && $_POST["username"] != "" && $_POST["email"] != "") {
     $connection = pg_connect("host=localhost port=5432 dbname=licenta user = postgres password = paulina ")
-            or die("Connection failed --> " . pg_last_error($connection));
+    or die("Connection failed --> " . pg_last_error($connection));
 
     $query = "SELECT username FROM public.users WHERE username='$username'";
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());

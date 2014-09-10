@@ -14,7 +14,7 @@ $password = $_POST["pwd"];
 
 $user = getUserByUsernameAndPassword($username, $password);
 
-if( $user == null){
+if ($user == null) {
     header('Location: index.php?login-form');
     return;
 }

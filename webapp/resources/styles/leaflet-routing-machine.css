@@ -68,7 +68,7 @@
     width: 285px;
     padding: 4px;
     border: 1px solid #ccc;
-    
+
 }
 
 .leaflet-routing-geocoders button {
@@ -80,7 +80,7 @@
     float: right;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    
+
 }
 
 .leaflet-routing-geocoders button:hover {

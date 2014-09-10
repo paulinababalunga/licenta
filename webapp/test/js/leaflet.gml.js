@@ -1,7 +1,7 @@
 L.Path.include(
     {
-        toGML: function(){
-            var coords,xml = '';
+        toGML: function () {
+            var coords, xml = '';
 
             if (this instanceof L.MultiPolygon || this instanceof L.MultiPolyline) {
                 console.log("GML TODO: L.MultiPolygon and L.MultiPolyline"); //MultiPolygon and MultiLineString
@@ -26,10 +26,10 @@ L.Path.include(
                 xml += "</gml:Polygon>";
                 return xml;
             } else if (this instanceof L.Polyline) {
-                console.log("GML TODO: L.Polyline"); 
+                console.log("GML TODO: L.Polyline");
 
-            } else if (this instanceof L.Circle){
-                console.log("GML TODO: L.Circle"); 
+            } else if (this instanceof L.Circle) {
+                console.log("GML TODO: L.Circle");
 
                 // Note: Geoserver doesn't support circles, need to convert this to a polygon
                 //xml += '<gml:Circle srsName="EPSG:4326">';
@@ -41,9 +41,9 @@ L.Path.include(
             }
         },
 
-        gmlCoordPairs: function(arrLatlng){
+        gmlCoordPairs: function (arrLatlng) {
             coords = [];
-            for(var i = 0;i < arrLatlng.length;i++){
+            for (var i = 0; i < arrLatlng.length; i++) {
                 coords.push(arrLatlng[i].lng + ',' + arrLatlng[i].lat);
             }
             return coords;
@@ -52,7 +52,7 @@ L.Path.include(
 );
 
 L.Marker.include({
-    toGML: function(){
+    toGML: function () {
         var xml;
         xml = '<gml:Point srsName="EPSG:4326"><gml:coordinates cs="," decimal="." ts=" ">';
         xml += this.getLatLng().lng + ',' + this.getLatLng().lat;

@@ -15,12 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-(function($, undefined) {
+(function ($, undefined) {
     var count = 0;
     var splitter_id = null;
     var splitters = [];
     var current_splitter = null;
-    $.fn.split = function(options) {
+    $.fn.split = function (options) {
         var data = this.data('splitter');
         if (data) {
             return data;
@@ -55,9 +55,9 @@
         var height = this.height();
         var id = count++;
         this.addClass('splitter_panel');
-        var splitter = $('<div/>').addClass(cls).mouseenter(function() {
+        var splitter = $('<div/>').addClass(cls).mouseenter(function () {
             splitter_id = id;
-        }).mouseleave(function() {
+        }).mouseleave(function () {
             splitter_id = null;
         }).insertAfter(panel_1);
         var position;
@@ -86,7 +86,7 @@
         }
 
         var self = $.extend(this, {
-            refresh: function() {
+            refresh: function () {
                 var new_width = this.width();
                 var new_height = this.height();
                 if (width != new_width || height != new_height) {
@@ -95,22 +95,22 @@
                     self.position(position);
                 }
             },
-            position: (function() {
+            position: (function () {
                 if (settings.orientation == 'vertical') {
-                    return function(n, silent) {
+                    return function (n, silent) {
                         if (n === undefined) {
                             return position;
                         } else {
                             position = get_position(n);
                             var sw = splitter.width();
-                            var sw2 = sw/2;
+                            var sw2 = sw / 2;
                             if (settings.invisible) {
                                 var pw = panel_1.width(position).outerWidth();
-                                panel_2.width(self.width()-pw);
-                                splitter.css('left', pw-sw2);
+                                panel_2.width(self.width() - pw);
+                                splitter.css('left', pw - sw2);
                             } else {
-                                var pw = panel_1.width(position-sw2).outerWidth();
-                                panel_2.width(self.width()-pw-sw);
+                                var pw = panel_1.width(position - sw2).outerWidth();
+                                panel_2.width(self.width() - pw - sw);
                                 splitter.css('left', pw);
                             }
                         }
@@ -120,20 +120,20 @@
                         return self;
                     };
                 } else if (settings.orientation == 'horizontal') {
-                    return function(n, silent) {
+                    return function (n, silent) {
                         if (n === undefined) {
                             return position;
                         } else {
                             position = get_position(n);
                             var sw = splitter.height();
-                            var sw2 = sw/2;
+                            var sw2 = sw / 2;
                             if (settings.invisible) {
                                 var pw = panel_1.height(position).outerHeight();
-                                panel_2.height(self.height()-pw);
-                                splitter.css('top', pw-sw2);
+                                panel_2.height(self.height() - pw);
+                                splitter.css('top', pw - sw2);
                             } else {
-                                var pw = panel_1.height(position-sw2).outerHeight();
-                                panel_2.height(self.height()-pw-sw);
+                                var pw = panel_1.height(position - sw2).outerHeight();
+                                panel_2.height(self.height() - pw - sw);
                                 splitter.css('top', pw);
                             }
                         }
@@ -148,10 +148,10 @@
             })(),
             orientation: settings.orientation,
             limit: settings.limit,
-            isActive: function() {
+            isActive: function () {
                 return splitter_id === id;
             },
-            destroy: function() {
+            destroy: function () {
                 self.removeClass('splitter_panel');
                 splitter.unbind('mouseenter');
                 splitter.unbind('mouseleave');
@@ -167,7 +167,7 @@
                 splitters[id] = null;
                 splitter.remove();
                 var not_null = false;
-                for (var i=splitters.length; i--;) {
+                for (var i = splitters.length; i--;) {
                     if (splitters[i] !== null) {
                         not_null = true;
                         break;
@@ -183,14 +183,14 @@
                 }
             }
         });
-        self.bind('splitter.resize', function(e) {
+        self.bind('splitter.resize', function (e) {
             var pos = self.position();
             if (self.orientation == 'vertical' &&
                 pos > self.width()) {
-                pos = self.width() - self.limit-1;
+                pos = self.width() - self.limit - 1;
             } else if (self.orientation == 'horizontal' &&
-                       pos > self.height()) {
-                pos = self.height() - self.limit-1;
+                pos > self.height()) {
+                pos = self.height() - self.limit - 1;
             }
             if (pos < self.limit) {
                 pos = self.limit + 1;
@@ -200,15 +200,15 @@
         //inital position of splitter
         var pos;
         if (settings.orientation == 'vertical') {
-            if (pos > width-settings.limit) {
-                pos = width-settings.limit;
+            if (pos > width - settings.limit) {
+                pos = width - settings.limit;
             } else {
                 pos = get_position(settings.position);
             }
         } else if (settings.orientation == 'horizontal') {
             //position = height/2;
-            if (pos > height-settings.limit) {
-                pos = height-settings.limit;
+            if (pos > height - settings.limit) {
+                pos = height - settings.limit;
             } else {
                 pos = get_position(settings.position);
             }
@@ -218,25 +218,25 @@
         }
         self.position(pos, true);
         if (splitters.length == 0) { // first time bind events to document
-            $(window).bind('resize.splitter', function() {
-                $.each(splitters, function(i, splitter) {
+            $(window).bind('resize.splitter', function () {
+                $.each(splitters, function (i, splitter) {
                     splitter.refresh();
                 });
             });
-            $(document.documentElement).bind('mousedown.splitter', function(e) {
+            $(document.documentElement).bind('mousedown.splitter',function (e) {
                 if (splitter_id !== null && e.which == 1) {
                     current_splitter = splitters[splitter_id];
                     $('<div class="splitterMask"></div>').css('cursor', splitter.css('cursor')).insertAfter(current_splitter);
                     current_splitter.settings.onDragStart(e);
                     return false;
                 }
-            }).bind('mouseup.splitter', function(e) {
+            }).bind('mouseup.splitter',function (e) {
                 if (current_splitter) {
                     $('.splitterMask').remove();
                     current_splitter.settings.onDragEnd(e);
                     current_splitter = null;
                 }
-            }).bind('mousemove.splitter', function(e) {
+            }).bind('mousemove.splitter', function (e) {
                 if (current_splitter !== null) {
                     var limit = current_splitter.limit;
                     var offset = current_splitter.offset();
@@ -248,21 +248,21 @@
                             x = current_splitter.width() - limit - 1;
                         }
                         if (x > current_splitter.limit &&
-                            x < current_splitter.width()-limit) {
+                            x < current_splitter.width() - limit) {
                             current_splitter.position(x, true);
                             current_splitter.find('.splitter_panel').
                                 trigger('splitter.resize');
                             e.preventDefault();
                         }
                     } else if (current_splitter.orientation == 'horizontal') {
-                        var y = e.pageY-offset.top;
+                        var y = e.pageY - offset.top;
                         if (y <= current_splitter.limit) {
                             y = current_splitter.limit + 1;
                         } else if (y >= current_splitter.height() - limit) {
                             y = current_splitter.height() - limit - 1;
                         }
                         if (y > current_splitter.limit &&
-                            y < current_splitter.height()-limit) {
+                            y < current_splitter.height() - limit) {
                             current_splitter.position(y, true);
                             current_splitter.find('.splitter_panel').
                                 trigger('splitter.resize');
