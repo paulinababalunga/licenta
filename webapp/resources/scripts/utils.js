@@ -1,50 +1,38 @@
 /**
- * Layers extended.
+ * Layer builder.
  */
-L.Control.LayersExt = L.Control.Layers.extend({
+L.LayerBuilder = {
 
-    initialize: function (baseLayers, overlays, options) {
-        this.overlayMaps = {};
-        this.layers = [];
-
-        var initOptions = L.extend({
-            overlayItemTemplate : "<img src='{{imageUrl}}' width='15px' /> <span class=''>{{title}}</span>"
-        }, options);
-
-        //apel consturctor
-        L.Control.Layers.prototype.initialize.call(this, baseLayers, overlays, initOptions);
-        this.processLayerConfig(options.layers);
-    },
-
-    processLayerConfig : function(config){
+    /**
+     * Build an object with layer names and layer object
+     * @param itemTemplate
+     * @param config
+     * @returns {{}}
+     */
+    buildLayerGroup : function(itemTemplate, config){
         var self = this;
+        var layers = {};
         $.each(config, function (index, layerConfig) {
-            var isGroup = layerConfig.group;
-            if( isGroup){
-                //todo: verificare daca are proprietatea layers
-                //procesare recursica de proprietati
-                self.processLayerConfig(layerConfig.layers);
-            }else{
+            var layer = self.buildLayer(layerConfig);
+            console.log("got layer", layer);
 
-                var layer = self.buildLayer(layerConfig);
-                console.log("got layer", layer);
+            if(layer){
+                var txt = Mustache.render(itemTemplate,{
+                    imageUrl : layerConfig.icon.url,
+                    title: layerConfig.title
+                });
 
-                if(layer){
-                    self.layers[index] = layer;
-
-                    var txt = Mustache.render(self.options.overlayItemTemplate,{
-                        imageUrl : layerConfig.icon.url,
-                        title: layerConfig.title
-                    });
-
-                    self.overlayMaps[txt] = layer;
-
-                    self.addOverlay(layer, txt);
-                }
+                layers[txt] = layer;
             }
         });
+        return layers;
     },
 
+    /**
+     *
+     * @param layerConfig
+     * @returns {*}
+     */
     buildLayer : function(layerConfig){
         var type = layerConfig.type;
         var layer = null;
@@ -64,6 +52,11 @@ L.Control.LayersExt = L.Control.Layers.extend({
         return layer;
     },
 
+    /**
+     *
+     * @param layerConfig
+     * @returns {*}
+     */
     buildMWSLayer : function(layerConfig){
         var url = layerConfig.workspace + "/" + layerConfig.type;
         var layer = L.tileLayer.wms(url, {
@@ -76,6 +69,11 @@ L.Control.LayersExt = L.Control.Layers.extend({
         return layer;
     },
 
+    /**
+     *
+     * @param layerConfig
+     * @returns {*}
+     */
     buildWFSLayer : function(layerConfig){
         var url = layerConfig.workspace + "/" + layerConfig.type;
         var featureNamespace = layerConfig.name.split(':')[0];
@@ -118,4 +116,4 @@ L.Control.LayersExt = L.Control.Layers.extend({
 
         return layer;
     }
-});
+};

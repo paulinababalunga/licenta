@@ -12,30 +12,17 @@ app = {
         this.map.remove();
         $(".leaflet-routing-container").remove();
         this.initMap();
-
     },
 
     initMap: function () {
         var self = this;
 
-        var osm = L.tileLayer.provider('OpenStreetMap.Mapnik');
-
         var map = this.map = L.map('map', {
             center: [47.15984, 27.57843],
             zoom: 13,
             zoomControl: true,
-            layers:[osm]
+            layers:[global.defaultBaseLayer]
         });
-
-        var baseMaps = {
-            //"Grayscale":  L.tileLayer.provider('OpenStreetMap.Mapnik'),
-            "Streets": osm
-        };
-
-        new L.Control.LayersExt(baseMaps, {}, {
-            layers: config.layers
-        }).addTo(map);
-
 
         var lc = L.control.locate({
             folow:true
@@ -46,6 +33,10 @@ app = {
 //        }).on('stopfollowing', function() {
 //            map.off('dragstart', lc.stopFollowing);
 //        });
+
+//        new L.Control.LayersExt(baseMaps, {}, {
+//            layers: config.layers
+//        }).addTo(map);
 
 
         //L.Control.Geocoder();
@@ -58,23 +49,23 @@ app = {
             geocoder: L.Control.Geocoder.nominatim()
         }).addTo(map);
 
-        console.log("routing", r);
-
         $(".leaflet-routing-container").appendTo("#info-content");
 
-//        //init layers
-//        $.each(config.layers, function(index, layer){
-//            console.log(index, layer);
-//
-//            self.layers[index] = L.tileLayer.wms(config.workspace, {
-//                layers: layer.name,
-//                format: layer.format,
-//                transparent: true,
-//                opacity: 0
-//            }).addTo(map);
-//        });
+        L.Control.loading({
+            separate: true
+        }).addTo(map);
+
+//        new L.Control.User({
+//            separate: true
+//        }).addTo(map);
 
 
+        var t = new L.Control.CategorizedLayers(config.baseLayers, config.overlayLayers, {
+            collapsed: false
+        }).addTo(map);
+
+        $(".leaflet-control-layers-expanded").appendTo("#layers-content");
+        //$(".leaflet-control-layers-list").appendTo("#layers-content");
 
         console.log("done");
     },

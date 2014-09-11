@@ -13,6 +13,7 @@
 	font-size: 1.4em;
 	margin-left: 1px;
     color: #444;
+    /*background-image: url(icon-cross-hairs.png);*/
 }
 
 .leaflet-control-locate.active a {

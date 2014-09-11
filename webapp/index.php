@@ -6,11 +6,14 @@ include './access.php';
 <head>
     <title>Urban System</title>
     <link rel="stylesheet" href="resources/scripts/leaflet/leaflet.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="resources/scripts/jquery/ui.jqgrid.css"/>
-    <link rel="stylesheet" href="resources/scripts/jquery/jquery-ui.css">
     <link rel="stylesheet" href="resources/scripts/leaflet/locate/L.Control.Locate.css"/>
+    <link rel="stylesheet" href="resources/scripts/leaflet/loading/Control.Loading.css"/>
     <link rel="stylesheet" href="resources/scripts/leaflet/geocoder/Control.Geocoder.css"/>
     <link rel="stylesheet" href="resources/scripts/leaflet/routing/leaflet-routing-machine.css"/>
+    <link rel="stylesheet" href="resources/scripts/leaflet/user/Contro.User.css"/>
+    <link rel="stylesheet" href="resources/scripts/leaflet/layers/leaflet-categorized-layers.css"/>
+    <link rel="stylesheet" href="resources/scripts/jquery/ui.jqgrid.css"/>
+    <link rel="stylesheet" href="resources/scripts/jquery/jquery-ui.css">
     <link rel="stylesheet" href="resources/scripts/jquery/jquery.splitter.css"/>
     <link rel="stylesheet" href="resources/styles/application.css"/>
 </head>
@@ -32,17 +35,7 @@ include './access.php';
 <div id="content_meniu">
 
     <div id="layers-content" class="menu-content" style="display: none">
-        <?php foreach ($layers as $index => $layer) { ?>
-            <div>
-                <input type="checkbox" class="layer"
-                       id="<?= $layer->id ?>"
-                       data-layer-id="<?= $layer->id ?>"
-                       data-table="<?= $layer->table ?>"
-                       data-title="<?= $layer->title ?>"
-                    ><label for="<?= $layer->id ?>"><?= $layer->title ?></label>
-                <img src="<?= $layer->image_url ?>">
-            </div>
-        <?php } ?>
+
     </div>
 
     <div id="user-content" class="menu-content" style="display: none">
@@ -120,6 +113,10 @@ include './access.php';
 <script src="resources/scripts/leaflet/locate/L.Control.Locate.js"></script>
 <script src="resources/scripts/leaflet/leaflet.gml.js"></script>
 <script src="resources/scripts/leaflet/leaflet.wfst.js"></script>
+<script src="resources/scripts/leaflet/layers/leaflet-categorized-layers.js"></script>
+<script src="resources/scripts/utils.js"></script>
+<script src="resources/scripts/leaflet/loading/Control.Loading.js"></script>
+<script src="resources/scripts/leaflet/user/Control.User.js"></script>
 
 <script src="resources/scripts/jquery/jquery-2.1.1.js"></script>
 <script src="resources/scripts/jquery/jquery-ui.js"></script>
@@ -130,7 +127,6 @@ include './access.php';
 <script src="resources/scripts/mustache/mustache.js"></script>
 
 <script src="resources/scripts/config.js"></script>
-<script src="resources/scripts/leaflet/layers/LayersExt.js"></script>
 <script src="resources/scripts/main.js"></script>
 
 </body>
