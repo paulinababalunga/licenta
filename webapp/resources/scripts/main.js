@@ -6,6 +6,7 @@ var app;
 app = {
     map: null,
     layers: [],
+
     reset: function () {
 
         this.map.remove();
@@ -13,18 +14,38 @@ app = {
         this.initMap();
 
     },
+
     initMap: function () {
+        var self = this;
+
+        var osm = L.tileLayer.provider('OpenStreetMap.Mapnik');
+
         var map = this.map = L.map('map', {
             center: [47.15984, 27.57843],
             zoom: 13,
-            zoomControl: true
+            zoomControl: true,
+            layers:[osm]
         });
 
-        //add basemap
-        L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
+        var baseMaps = {
+            //"Grayscale":  L.tileLayer.provider('OpenStreetMap.Mapnik'),
+            "Streets": osm
+        };
 
-        //geolocation
-        L.control.locate().addTo(map);
+        new L.Control.LayersExt(baseMaps, {}, {
+            layers: config.layers
+        }).addTo(map);
+
+
+        var lc = L.control.locate({
+            folow:true
+        }).addTo(map);
+
+//        map.on('startfollowing', function() {
+//            map.on('dragstart', lc.stopFollowing);
+//        }).on('stopfollowing', function() {
+//            map.off('dragstart', lc.stopFollowing);
+//        });
 
 
         //L.Control.Geocoder();
@@ -41,68 +62,24 @@ app = {
 
         $(".leaflet-routing-container").appendTo("#info-content");
 
-        this.layers["restaurant"] = L.tileLayer.wms("http://localhost:8080/geoserver/licenta/wms", {
-            layers: 'licenta:restaurant',
-            format: 'image/png',
-            transparent: true,
-            opacity: 0
-        }).addTo(map);
+//        //init layers
+//        $.each(config.layers, function(index, layer){
+//            console.log(index, layer);
+//
+//            self.layers[index] = L.tileLayer.wms(config.workspace, {
+//                layers: layer.name,
+//                format: layer.format,
+//                transparent: true,
+//                opacity: 0
+//            }).addTo(map);
+//        });
 
 
-        this.layers["pensiune"] = L.tileLayer.wms("http://localhost:8080/geoserver/licenta/wms", {
-            layers: 'licenta:pensiune',
-            format: 'image/png',
-            transparent: true,
-            opacity: 0
-        }).addTo(map);
-
-        this.layers["hotel"] = L.tileLayer.wms("http://localhost:8080/geoserver/licenta/wms", {
-            layers: 'licenta:hotel',
-            format: 'image/png',
-            transparent: true,
-            opacity: 0
-        }).addTo(map);
-
-
-        this.layers["spital"] = L.tileLayer.wms("http://localhost:8080/geoserver/licenta/wms", {
-            layers: 'licenta:spital',
-            format: 'image/png',
-            transparent: true,
-            opacity: 0
-        }).addTo(map);
-
-        this.layers["parc"] = L.tileLayer.wms("http://localhost:8080/geoserver/licenta/wms", {
-            layers: 'licenta:parc',
-            format: 'image/png',
-            transparent: true,
-            opacity: 0
-        }).addTo(map);
-
-        this.layers["muzeu"] = L.tileLayer.wms("http://localhost:8080/geoserver/licenta/wms", {
-            layers: 'licenta:muzeu',
-            format: 'image/png',
-            transparent: true,
-            opacity: 0
-        }).addTo(map);
-
-        this.layers["teatru"] = L.tileLayer.wms("http://localhost:8080/geoserver/licenta/wms", {
-            layers: 'licenta:teatru',
-            format: 'image/png',
-            transparent: true,
-            opacity: 0
-        }).addTo(map);
-
-
-        map.on("click", function (e) {
-            console.log("click", e);
-            var latlng = e.latlng;
-
-        });
 
         console.log("done");
-
-
     },
+
+
     initLayout: function () {
 
         $("#content_meniu").hide();

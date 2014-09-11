@@ -24,8 +24,8 @@ function initMap() {
     layers.drawnItems = L.wfst(null, {
         // Required
         url: 'http://localhost:8080/geoserver/licenta/wfs',
-        featureNS: 'parc',
-        featureType: 'parc',
+        featureNS: 'hotel',
+        featureType: 'hotel',
         primaryKeyField: 'id'
     }).addTo(map);
 

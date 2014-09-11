@@ -1,24 +1,18 @@
 <?php
-
-//$http_origin = $_SERVER['HTTP_ORIGIN'];
-header("Access-Control-Allow-Origin: http://localhost:8080");
-
 include './layers.php';
 include './access.php';
 ?>
 <html>
 <head>
     <title>Urban System</title>
-    <link rel="stylesheet" href="resources/styles/leaflet.css"/>
+    <link rel="stylesheet" href="resources/scripts/leaflet/leaflet.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="resources/scripts/jquery/ui.jqgrid.css"/>
+    <link rel="stylesheet" href="resources/scripts/jquery/jquery-ui.css">
+    <link rel="stylesheet" href="resources/scripts/leaflet/locate/L.Control.Locate.css"/>
+    <link rel="stylesheet" href="resources/scripts/leaflet/geocoder/Control.Geocoder.css"/>
+    <link rel="stylesheet" href="resources/scripts/leaflet/routing/leaflet-routing-machine.css"/>
+    <link rel="stylesheet" href="resources/scripts/jquery/jquery.splitter.css"/>
     <link rel="stylesheet" href="resources/styles/application.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="resources/styles/ui.jqgrid.css"/>
-    <link rel="stylesheet" href="resources/styles/jquery-ui.css">
-    <link rel="stylesheet" href="//rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/src/L.Control.Locate.css"/>
-    <link rel="stylesheet" href="resources/styles/leaflet-routing-machine.css"/>
-    <link rel="stylesheet" href="resources/styles/Control.Geocoder.css"/>
-    <link rel="stylesheet" href="resources/styles/jquery.splitter.css"/>
-
-
 </head>
 
 <body>
@@ -28,7 +22,6 @@ include './access.php';
 </form>
 
 <div id="header">
-
     <ul class="meniu">
         <li id="user" class="menu-item" data-content-id="user-content">&nbsp;</li>
         <li id="info" class="menu-item" data-content-id="info-content">&nbsp;</li>
@@ -120,17 +113,25 @@ include './access.php';
 </div>
 
 
-<script src="resources/scripts/lib/leaflet-src.js"></script>
-<script src="resources/scripts/lib/leaflet-providers.js"></script>
-<script src="resources/scripts/lib/jquery-2.1.1.min.js"></script>
-<script src="resources/scripts/lib/jquery-ui.js"></script>
+<script src="resources/scripts/leaflet/leaflet.js"></script>
+<script src="resources/scripts/leaflet/leaflet-providers.js"></script>
+<script src="resources/scripts/leaflet/routing/leaflet-routing-machine.js"></script>
+<script src="resources/scripts/leaflet/geocoder/Control.Geocoder.js"></script>
+<script src="resources/scripts/leaflet/locate/L.Control.Locate.js"></script>
+<script src="resources/scripts/leaflet/leaflet.gml.js"></script>
+<script src="resources/scripts/leaflet/leaflet.wfst.js"></script>
+
+<script src="resources/scripts/jquery/jquery-2.1.1.js"></script>
+<script src="resources/scripts/jquery/jquery-ui.js"></script>
+<script src="resources/scripts/jquery/grid.locale-en.js"></script>
+<script src="resources/scripts/jquery/jquery.jqGrid.src.js"></script>
+<script src="resources/scripts/jquery/jquery.splitter-0.14.0.js"></script>
+
+<script src="resources/scripts/mustache/mustache.js"></script>
+
+<script src="resources/scripts/config.js"></script>
+<script src="resources/scripts/leaflet/layers/LayersExt.js"></script>
 <script src="resources/scripts/main.js"></script>
-<script src="resources/scripts/lib/L.Control.Locate.js"></script>
-<script src="resources/scripts/lib/grid.locale-en.js" type="text/javascript"></script>
-<script src="resources/scripts/lib/jquery.jqGrid.src.js" type="text/javascript"></script>
-<script src="resources/scripts/lib/leaflet-routing-machine.min.js"></script>
-<script src="resources/scripts/lib/Control.Geocoder.js"></script>
-<script src="resources/scripts/lib/jquery.splitter-0.14.0.js"></script>
 
 </body>
 </html>
