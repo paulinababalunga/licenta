@@ -11,13 +11,14 @@ var global = {
 var config = {
 
     baseLayers:{
-        "Open Street Map":{
-            "Standard": global.defaultBaseLayer
-        },
-
-        "Esri": {
-            "WorldStreetMap": L.tileLayer.provider('Esri.WorldStreetMap'),
-            "DeLorme": L.tileLayer.provider('Esri.DeLorme')
+        "Hartă de bază":{
+            "OSM - Standard": global.defaultBaseLayer,
+            "OSM - Black & White": L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
+            "Acetate": L.tileLayer.provider('Acetate'),
+            "Esri - WorldStreetMap": L.tileLayer.provider('Esri.WorldStreetMap'),
+            "Esri - DeLorme": L.tileLayer.provider('Esri.DeLorme'),
+            "Nokia - normal day": L.tileLayer.provider('Nokia.normalDay'),
+            "Nokia - satelliteNoLabelsDay": L.tileLayer.provider('Nokia.satelliteNoLabelsDay')
         }
     },
 
@@ -127,7 +128,8 @@ var config = {
             "OpenWeatherMap Precipitation": L.tileLayer.provider('OpenWeatherMap.Precipitation'),
             "OpenWeatherMap Rain": L.tileLayer.provider('OpenWeatherMap.Rain'),
             "OpenWeatherMap Pressure": L.tileLayer.provider('OpenWeatherMap.Pressure'),
-            "OpenWeatherMap Wind": L.tileLayer.provider('OpenWeatherMap.Wind')
+            "OpenWeatherMap Wind": L.tileLayer.provider('OpenWeatherMap.Wind'),
+            "OpenWeatherMap Temperature": L.tileLayer.provider('OpenWeatherMap.Temperature')
         }
     }
 };

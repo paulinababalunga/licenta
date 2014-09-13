@@ -1,0 +1,45 @@
+.leaflet-control-table{
+    margin-left: 10px !important;
+    margin-bottom: 10px !important;
+    padding: 0;
+    width: 905px;
+    height: 300px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.leaflet-control-table.collapsed{
+    height: 15px !important;
+}
+
+.leaflet-control-table.collapsed .tab-container{
+    display: none;
+}
+
+.leaflet-control-table .tab-container{
+    cursor: default;
+    float: left;
+}
+
+.leaflet-control-table .table-container{
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+
+.bottom-toggler{
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    display: block;
+}
+
+.bottom-toggler.up{
+    /*background: url('up.png') no-repeat 0 0;*/
+}
+
+.bottom-toggler.down{
+    /*background: url('down.png') no-repeat;*/
+}
+
+

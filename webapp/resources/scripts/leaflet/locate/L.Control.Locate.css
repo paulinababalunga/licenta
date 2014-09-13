@@ -1,6 +1,6 @@
 /* Compatible with Leaflet 0.7 */
 
-@import url('css/locate-fa.css');
+/*@import url('css/locate-fa.css');*/
 @import url('css/animation.css');
 
 .leaflet-touch .leaflet-bar-part-single {
@@ -13,11 +13,16 @@
 	font-size: 1.4em;
 	margin-left: 1px;
     color: #444;
-    /*background-image: url(icon-cross-hairs.png);*/
+    background-image: url(icon-cross-hairs.png);
 }
 
 .leaflet-control-locate.active a {
 	color: #2074B6;
+    background-color: #fffc91;
+}
+
+.leaflet-control-locate.active a:hover {
+    background-color: #f6ffc1;
 }
 
 .leaflet-control-locate.active.following a {

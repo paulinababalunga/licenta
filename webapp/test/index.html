@@ -4,39 +4,45 @@
     <meta charset="utf-7">
     <title>WFS-T Leaflet Plugin</title>
 
-    <!-- Leaflet 0.7.3 CSS/JS from CDN -->
-    <link type="text/css" rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-    <!--[if lte IE 8]>
-    <link type="text/css" rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.ie.css"/>
-    <![endif]-->
-    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-
-    <script src="js/leaflet-providers.js"></script>
-
+    <link rel="stylesheet" href="../resources/scripts/leaflet/leaflet.css"/>
+    <script src="../resources/scripts/leaflet/leaflet.js"></script>
+    <script src="../resources/scripts/leaflet/leaflet-providers.js"></script>
 
     <!-- Leaflet Draw 0.2.0 (you'll need to download these -->
     <!-- Point these URLs at your own copy of Leaflet.draw, or run:
 
-    git submodule init
-    git submodule update
-
-    to initialize the git submodule
     -->
-    <link type="text/css" rel="stylesheet" href="js/Leaflet.draw/leaflet.draw.css"/>
-    <script type="text/javascript" src="js/Leaflet.draw/leaflet.draw.js"></script>
+    <link rel="stylesheet" href="../resources/scripts/leaflet/draw/leaflet.draw.css"/>
+    <script src="../resources/scripts/leaflet/draw/leaflet.draw.js"></script>
+
+    <link rel="stylesheet" href="../resources/scripts/leaflet/sidebar/L.Control.Sidebar.css"/>
+    <script src="../resources/scripts/leaflet/sidebar/L.Control.Sidebar.js"></script>
 
     <!-- This is what you're here for! -->
     <!-- leaflet.gml.js, leaflet.wfst.js -->
-    <script type="text/javascript" src="js/leaflet.gml.js"></script>
-    <script type="text/javascript" src="js/leaflet.wfst.js"></script>
+    <script src="../resources/scripts/leaflet/leaflet.gml.js"></script>
+    <script src="../resources/scripts/leaflet/leaflet.wfst.js"></script>
 
 
     <!-- css and js for demo -->
-    <link type="text/css" rel="stylesheet" href="css/map.css"/>
-    <script type="text/javascript" src="js/map.js"></script>
+    <link rel="stylesheet" href="css/map.css"/>
+    <script src="js/map.js"></script>
 </head>
 <body>
 <div id="map"></div>
+<div id="sidebar">
+    <h1>Hotel</h1>
+
+    <div class="feature-content">
+
+
+    </div>
+
+    <div class="button-bar">
+        <button>Salveaza</button>
+        <button>Sterge</button>
+    </div>
+</div>
 <script type="text/javascript">
     // Load the map with the initMap function in map.js
     initMap();

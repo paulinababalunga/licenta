@@ -17,7 +17,7 @@ app = {
     initMap: function () {
         var self = this;
 
-        var map = this.map = L.map('map', {
+        var map = self.map = L.map('map', {
             center: [47.15984, 27.57843],
             zoom: 13,
             zoomControl: true,
@@ -51,13 +51,10 @@ app = {
 
         $(".leaflet-routing-container").appendTo("#info-content");
 
-        L.Control.loading({
-            separate: true
-        }).addTo(map);
 
-//        new L.Control.User({
-//            separate: true
-//        }).addTo(map);
+        new L.Control.Toolbar({
+            map: map
+        }).addTo(map);
 
 
         var t = new L.Control.CategorizedLayers(config.baseLayers, config.overlayLayers, {
@@ -65,35 +62,36 @@ app = {
         }).addTo(map);
 
         $(".leaflet-control-layers-expanded").appendTo("#layers-content");
-        //$(".leaflet-control-layers-list").appendTo("#layers-content");
+
+
+
+
+        var aboutSidebar = L.control.sidebar('about', {
+            position: 'left'
+        });
+        map.addControl(aboutSidebar);
+
+
+
+        L.easyButton('about-icon fa-info',
+            function(){
+                aboutSidebar.toggle();
+            }, 'Despre',map);
+
+
+        //last control
+        L.Control.loading({
+            separate: true
+        }).addTo(map);
+
+
+        new L.Control.Table().addTo(map);
 
         console.log("done");
     },
 
 
     initLayout: function () {
-
-        $("#content_meniu").hide();
-
-        $(".menu-item").click(function () {
-            var contentId = $(this).data("content-id");
-
-            var cm = $("#content_meniu").data('current-menu');
-
-            var selectedEffect = "blind";
-            if (cm == contentId) {
-                $("#content_meniu").toggle(selectedEffect);
-            } else {
-                $("#content_meniu").show(selectedEffect);
-            }
-
-
-            $(".menu-content").hide();
-            $("#" + contentId).show();
-
-            $("#content_meniu").data('current-menu', contentId);
-        });
-
 
         var self = this;
         $(".layer").click(function () {
@@ -116,18 +114,7 @@ app = {
             }
         });
 
-        var tabs = $("#tabs").tabs({
-            heightStyle: "auto"
-        });
 
-        tabs.delegate("span.ui-icon-close", "click", function () {
-            var panelId = $(this).closest("li").remove().attr("aria-controls");
-            $("#" + panelId).remove();
-            tabs.tabs("refresh");
-        });
-
-
-        self.tabs = tabs;
 
         /* search function*/
 
@@ -179,20 +166,6 @@ app = {
         });
 
 
-        $("#bottom-toggler").click(function () {
-            if ($("#tabs").is(":visible")) {
-                $("#bottom").height("30px");
-                $("#tabs").hide();
-                $("#image").attr('src', "resources/image/arrow_up_double.png");
-
-            } else {
-                $("#bottom").height("200px");
-                $("#tabs").show();
-                $("#image").attr('src', "resources/image/arrow_down_double.png");
-
-            }
-
-        });
 
         //function reset map and routing
 
