@@ -1,6 +1,13 @@
 <?php
 include './layers.php';
 include './access.php';
+
+if (isset($_REQUEST['test'])){
+    include './services/dao.php';
+    $user = new User();
+    $user->username = "developer";
+}
+
 ?>
 <html>
 <head>
@@ -40,9 +47,6 @@ include './access.php';
         </a>
         <a class="button" data-target-id="details-user">
             <span id="user"></span>
-        </a>
-        <a class="button" data-target-id="details-edit">
-            <span id="edit"></span>
         </a>
     </div>
 
@@ -91,23 +95,13 @@ include './access.php';
 
                 <?php } else { ?>
 
-                    <?php echo "Buna " . $user["username"] . " !!!"; ?>
+                    <?php echo "Buna " . $user->username . " !!!"; ?>
                     <form method="post" action="logout.php">
                         <input type="submit" class="btnSignUp" id="btnLogOut" value="Delogare">
                     </form>
 
                 <?php } ?>
-
-
             </div>
-        </div>
-
-
-        <div id="details-edit" class="menu-content" >
-            <h1>Editare</h1>
-
-            <input type="button" class="btnSignUp" id="btnEdit" onclick="" value="Editeaza">
-
         </div>
     </div>
 
@@ -146,10 +140,10 @@ include './access.php';
 
 <script src="resources/scripts/utils.js"></script>
 <script src="resources/scripts/config.js"></script>
+<?if($user != null){?>
+    <script src="resources/scripts/edit.js"></script>
+<?}?>
 <script src="resources/scripts/main.js"></script>
-<?php if($user != null){
-
-} ?>
 
 </body>
 </html>
