@@ -111,6 +111,7 @@ if (isset($_REQUEST['test'])){
         <p>
             Informatii despre aplicatie ...
         </p>
+
     </div>
 
 </div>

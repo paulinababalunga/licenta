@@ -35,14 +35,17 @@ body {
 
 #layers {
     background: url("../image/Layers.png") no-repeat center;
+
+
 }
 
 #info {
-    background: url("../image/icon.png") no-repeat center;
+    background: url("../image/transp.png" ) no-repeat center ;
+
 }
 
 #user {
-    background: url("../image/user-icon.png")  no-repeat center;
+    background: url("../image/user.png")  no-repeat center;
 }
 
 #bottom {
