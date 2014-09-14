@@ -1,3 +1,6 @@
+/**
+ * Activeaza si initializeaza functionalitatile de editare.
+ */
 $(function(){
 
     var toolItem =
