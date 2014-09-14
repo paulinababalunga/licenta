@@ -13,9 +13,9 @@ var config = {
     baseLayers:{
         "Hartă de bază":{
             "OSM - Standard": global.defaultBaseLayer,
-            "OSM - Black & White": L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
             "Acetate": L.tileLayer.provider('Acetate'),
             "Esri - WorldStreetMap": L.tileLayer.provider('Esri.WorldStreetMap'),
+            "Esri - WorldImagery": L.tileLayer.provider('Esri.WorldImagery'),
             "Esri - DeLorme": L.tileLayer.provider('Esri.DeLorme'),
             "Nokia - normal day": L.tileLayer.provider('Nokia.normalDay'),
             "Nokia - satelliteNoLabelsDay": L.tileLayer.provider('Nokia.satelliteNoLabelsDay')
