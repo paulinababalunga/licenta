@@ -114,6 +114,10 @@ L.LayerBuilder = {
             }
         });
 
+        this.layerConfigMapping[layerConfig.name] = layerConfig;
+
         return layer;
-    }
+    },
+
+    layerConfigMapping:[]
 };

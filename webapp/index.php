@@ -142,7 +142,12 @@ if (isset($_REQUEST['test'])){
 <script src="resources/scripts/utils.js"></script>
 <script src="resources/scripts/config.js"></script>
 <?if($user != null){?>
-    <script src="resources/scripts/edit.js"></script>
+    <style scoped="scoped">
+        @import url('resources/scripts/leaflet/draw/leaflet.draw.css');
+        @import url('resources/styles/editing.css');
+    </style>
+    <script src="resources/scripts/leaflet/draw/leaflet.draw.js"></script>
+    <script src="resources/scripts/editing.js"></script>
 <?}?>
 <script src="resources/scripts/main.js"></script>
 

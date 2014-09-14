@@ -4,15 +4,15 @@
  */
 var app;
 app = {
+    /**
+     * Map object
+     */
     map: null,
-    layers: [],
 
-    reset: function () {
-
-        this.map.remove();
-        $(".leaflet-routing-container").remove();
-        this.initMap();
-    },
+    /**
+     * Visible layers
+     */
+    layers:[],
 
     initMap: function () {
         var self = this;
@@ -57,12 +57,24 @@ app = {
         }).addTo(map);
 
 
-        var t = new L.Control.CategorizedLayers(config.baseLayers, config.overlayLayers, {
+        new L.Control.CategorizedLayers(config.baseLayers, config.overlayLayers, {
             collapsed: false
         }).addTo(map);
 
         $(".leaflet-control-layers-expanded").appendTo("#layers-content");
 
+        //eveniment la afisarea unui strat
+        map.on("overlayadd", function(e){
+            self.layers.push(e.layer);
+        });
+
+        //eveniment la ascunderea unui strat
+        map.on("overlayremove", function(e){
+            var index = self.layers.indexOf(e.layer);
+            if( index > -1){
+                self.layers.splice(index, 1);
+            }
+        });
 
 
 
@@ -87,34 +99,12 @@ app = {
 
         new L.Control.Table().addTo(map);
 
-        console.log("done");
+        console.log("Map initialized");
     },
 
 
     initLayout: function () {
-
         var self = this;
-        $(".layer").click(function () {
-            var layerId = $(this).data("layer-id");
-            var table = $(this).data("table");
-            var title = $(this).data("title");
-            var checked = this.checked;
-
-            var layer = self.layers[layerId];
-            if (!layer) {
-                alert("Nu exista layer cu id " + layerId);
-                return;
-            }
-            layer.setOpacity(this.checked ? 1 : 0);
-
-            if (checked) {
-                addTabAndTable(layerId, table, title);
-            } else {
-                removeTab(layerId);
-            }
-        });
-
-
 
         /* search function*/
 
@@ -176,26 +166,16 @@ app = {
             }
             app.reset();
         });
-
-
-        $("#parcuri").jqGrid({
-            url: 'services/list-items.php?table=parc',
-            datatype: "json",
-            colNames: ['ID', 'Nume', 'Autor'],
-            colModel: [
-                {name: 'id', index: 'id', width: 55},
-                {name: 'nume', index: 'nume', width: 90},
-                {name: 'owner', index: 'name asc, invdate', width: 100}
-            ],
-            rowNum: 10,
-            rowList: [10, 20, 30],
-            //pager: '#pager2',
-            sortname: 'id',
-            viewrecords: true,
-            sortorder: "desc"
-            //caption: "JSON Example"
-        });
     },
+
+    reset: function () {
+
+        this.map.remove();
+        $(".leaflet-routing-container").remove();
+        this.initMap();
+    },
+
+
     run: function () {
         this.initLayout();
         this.initMap();

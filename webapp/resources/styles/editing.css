@@ -1,0 +1,61 @@
+.template-picker{
+    vertical-align: top;
+
+}
+
+.template-picker .item{
+    border-radius: 3px;
+    border: 1px solid gray;
+    padding: 5px;
+    margin: 5px;
+    display: inline-table;
+    cursor: pointer;
+    text-align: center;
+    min-width: 40px;
+    float: left;
+    height: 48px;
+    vertical-align: middle;
+}
+
+.template-picker .item.selected{
+    background-color: lightgoldenrodyellow;
+}
+
+.template-picker .item span{
+    font-size: 8px;
+    display: block;
+}
+
+.attribute-editor{
+    clear: both;
+    padding-top: 20px;
+}
+
+.attribute-editor .attribute-form{
+    overflow: auto;
+    background-color: #ebebeb;
+}
+
+.attribute-editor .attribute-form div{
+    vertical-align: middle;
+}
+
+.attribute-editor .attribute-form input, .attribute-editor .attribute-form textarea{
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+.attribute-editor .attribute-form label{
+    float: left;
+    padding: 10px;
+}
+
+.attribute-editor .attribute-form textarea{
+    height: 100px;
+}
+
+.attribute-editor .attribute-buttons{
+    margin-top: 5px;
+}
+
+

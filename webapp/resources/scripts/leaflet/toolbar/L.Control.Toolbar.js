@@ -7,46 +7,50 @@ L.Control.Toolbar = L.Control.extend({
         L.setOptions(this, options);
     },
 
-    selected: null,
-
     onAdd : function(map) {
         this._div = L.DomUtil.create('div', 'leaflet-control-toolbar');
         var self = this;
 
-        self.sidebar = L.control.sidebar('details', {
+        var sidebar = L.control.sidebar('details', {
             position: 'right'
         }).addTo(map);
 
-        self.sidebar.on('hidden', function () {
-            self.selected.toggleClass("selected");
-            self.selected = null;
-            self.sidebar.current = null;
+        //selected tool
+        var selected = null;
+        sidebar.on('hidden', function () {
+            selected.toggleClass("selected");
+            map.fire("tool:" + sidebar.current + ":deactivated");
+            selected = null;
+            sidebar.current = null;
         });
 
         $(".button").click(function(){
             var contentId = $(this).data("target-id");
-            var currentId = self.sidebar.current;
+            var currentId = sidebar.current;
 
             if( contentId == currentId){
-                self.sidebar.hide();
+                sidebar.hide();
                 return;
             }
 
             //show
-            if( self.selected){
-                self.selected.removeClass("selected");
+            if( selected){
+                map.fire("tool:" + currentId  + ":deactivated");
+                selected.removeClass("selected");
             }
 
-            self.selected = $(this);
-            self.selected.addClass("selected");
+            selected = $(this);
+            selected.addClass("selected");
 
             $(".menu-content").hide();
             $("#" + contentId).show();
 
-            self.sidebar.current = contentId;
+            map.fire("tool:" + contentId + ":activated");
 
-            if( !self.sidebar.isVisible()){
-                self.sidebar.show();
+            sidebar.current = contentId;
+
+            if( !sidebar.isVisible()){
+                sidebar.show();
             }
         });
 

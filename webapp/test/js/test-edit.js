@@ -22,7 +22,7 @@ function initMap() {
 //        noWrap: true
 //    }).addTo(map);
 
-    // Initialize the WFST layer 
+    // Initialize the WFST layer
     layers.drawnItems = L.wfst(null, {
         // Required
         version: "1.0.0",
@@ -42,11 +42,13 @@ function initMap() {
     // Initialize the draw control and pass it the FeatureGroup of editable layers
     var drawControl = new L.Control.Draw({
         draw:{
+            marker:false,
             polyline:false,
             polygon:false,
             rectangle:false,
             circle:false
-        },
+        }
+        ,
         edit: {
             featureGroup: layers.drawnItems
         }
@@ -60,13 +62,26 @@ function initMap() {
     });
     map.addControl(sidebar);
 
+    sidebar.on('shown', function () {
+        //sidebar.setContent('test <b>test</b> test');
 
-    map.on('draw:created', function (e) {
-        editingFeature = e.layer;
-
-        layers.drawnItems.addLayer(e.layer);
-        sidebar.show();
     });
+
+    sidebar.on('hidden', function () {
+
+    });
+
+    setTimeout(function(){
+        sidebar.show()
+    }, 500);
+
+
+//    map.on('draw:created', function (e) {
+//        editingFeature = e.layer;
+//
+//        layers.drawnItems.addLayer(e.layer);
+//        sidebar.show();
+//    });
 
     map.on('draw:edited', function (e) {
         layers.drawnItems.wfstSave(e.layers);
@@ -82,15 +97,57 @@ function initMap() {
 //        layers.drawnItems.removeLayer(features);
     });
 
-    sidebar.on('shown', function () {
-        //sidebar.setContent('test <b>test</b> test');
 
 
 
+//    var editHandler = null;
+//    var drawHander = null;
+//
+//    function activateEditMarker(){
+//
+//        for(var i in drawControl._toolbars){
+//            if(typeof drawControl._toolbars[i]._modes.marker != 'undefined'){
+//                drawHander = drawControl._toolbars[i]._modes.marker.handler;
+//            }
+//
+//            if(typeof drawControl._toolbars[i]._modes.edit != 'undefined'){
+//                editHandler = drawControl._toolbars[i]._modes.edit.handler;
+//            }
+//        }
+//
+//        //editHandler.enable();
+//        drawHander.enable();
+//    }
+//
+//
+//    setTimeout(function(){
+//        activateEditMarker();
+//    }, 1000);
+//
+//    setTimeout(function(){
+//        drawHander.disable();
+//    }, 10000);
 
+    var hotelOptions = {
+        icon: L.icon({
+            iconUrl: '../resources/image/hotel.png'
+            //,shadowUrl: 'leaf-shadow.png'
+            ,iconSize: [32, 37] // size of the icon
+            //,shadowSize:   [50, 64] // size of the shadow
+            //,iconAnchor:   [10, 70] // point of the icon which will correspond to marker's location
+            //,shadowAnchor: [4, 62]  // the same for the shadow
+            //,popupAnchor:  [-15, -80] // point from which the popup should open relative to the iconAnchor
+        })
+    };
+
+    var hotelDrawer = new L.Draw.Marker(map, hotelOptions);
+
+    $("#placeHotelStart").click(function(){
+        hotelDrawer.enable();
     });
 
-    sidebar.on('hidden', function () {
-
+    $("#placeHotelCancel").click(function(){
+        hotelDrawer.disable();
     });
+
 }

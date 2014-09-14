@@ -36,6 +36,7 @@ L.Control.Table = L.Control.extend({
             self.onLayerRemove(e);
         });
 
+        //se asteapta ceva timp pina se adauga continutul in DOM
         setTimeout(function(){
 
 //        $(".table-container").resizable({
