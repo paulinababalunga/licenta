@@ -33,12 +33,12 @@
     border-bottom-left-radius: 5px;
 }
 
-.leaflet-control-toolbar a:first-child{
+.leaflet-control-toolbar a {
     border-bottom: 1px solid gray;
 }
 
-.leaflet-control-toolbar a:last-child{
-    border-top: 1px solid gray;
+.leaflet-control-toolbar a:last-child {
+    border-bottom: none;
 }
 
 .leaflet-control-toolbar a span{

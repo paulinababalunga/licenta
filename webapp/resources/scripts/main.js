@@ -217,11 +217,6 @@ function Cancel() {
 }
 
 
-
-
-
-
-
 $(function () {
     app.run();
 });

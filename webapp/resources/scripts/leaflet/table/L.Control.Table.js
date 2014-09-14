@@ -77,7 +77,7 @@ L.Control.Table = L.Control.extend({
     },
 
     tabCounter : 0,
-    tabTemplate : "<li id='tab-header-#{layerId}'><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
+    tabTemplate : "<li id='tab-header-#{layerId}'><a href='#{href}'>#{label}</a> </li>",
 
     addTabAndTable: function(layerId, table, title) {
         var self = this;
@@ -93,7 +93,7 @@ L.Control.Table = L.Control.extend({
         tabs.tabs("refresh");
 
         $("#table" + layerId).jqGrid({
-            url: 'services/list-items.php?table=' + table,
+            url: 'services/list-items.php?table=informatii_publice.' + table,
             datatype: "json",
             colNames: ['ID', 'Nume', 'Autor'],
             colModel: [

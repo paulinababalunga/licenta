@@ -1,9 +1,9 @@
 .leaflet-routing-container {
-    width: 320px;
+    width: 300px;
     background-color: white;
     padding-top: 4px;
     transition: margin-right 0.2s ease;
-    margin-left: 6px;
+    margin-left: -6px;
     margin-right: 6px;
 }
 
@@ -113,4 +113,10 @@
 .leaflet-routing-geocoder-no-results {
     font-style: italic;
     color: #888;
+}
+
+.leaflet-routing-container input {
+    outline: none;
+    margin-left: 3px;
+    margin-top: 0px;
 }

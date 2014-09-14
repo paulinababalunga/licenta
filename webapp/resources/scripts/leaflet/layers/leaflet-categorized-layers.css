@@ -23,3 +23,9 @@
   color: rgba(0,0,0,0.5);
   font-weight: bold;
 }
+
+.leaflet-control-layers-list input {
+    outline: none;
+    margin-left: 20px;
+    /*margin-top: 10px;*/
+}

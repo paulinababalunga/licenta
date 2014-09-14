@@ -41,6 +41,9 @@ include './access.php';
         <a class="button" data-target-id="details-user">
             <span id="user"></span>
         </a>
+        <a class="button" data-target-id="details-edit">
+            <span id="edit"></span>
+        </a>
     </div>
 
     <div id="details">
@@ -54,10 +57,10 @@ include './access.php';
         <div id="details-transport" class="menu-content" style="display: none">
             <h1>Transport</h1>
             <div id="info-content" >
-                <p>Selecteaza traseul:</p>
-                <form id="reset">
-                    <input type="button" id="btnReset" value="Reseteaza">
-                </form>
+<!--                <p>Selecteaza traseul:</p>-->
+<!--                <form id="reset">-->
+<!--                    <input type="button" id="btnReset" value="Reseteaza">-->
+<!--                </form>-->
             </div>
         </div>
 
@@ -100,8 +103,8 @@ include './access.php';
         </div>
 
 
-        <div id="details-feature" style=" display: none">
-            <h1>Feature details</h1>
+        <div id="details-edit" class="menu-content" >
+            <h1>Editare</h1>
 
             <input type="button" class="btnSignUp" id="btnEdit" onclick="" value="Editeaza">
 
@@ -144,10 +147,9 @@ include './access.php';
 <script src="resources/scripts/utils.js"></script>
 <script src="resources/scripts/config.js"></script>
 <script src="resources/scripts/main.js"></script>
+<?php if($user != null){
+
+} ?>
 
 </body>
 </html>
-
-<script>
-
-</script>

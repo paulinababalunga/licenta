@@ -34,10 +34,5 @@ function runQuery($query)
 function getUserByUsernameAndPassword($username, $password)
 {
     $data = runQuery("SELECT username, pwd FROM public.users WHERE username = '$username' AND pwd = '$password'");
-//    $user = null;
-//    if( $data != null){
-//        $user = new User();
-//        $user->username = $data[0]["username"];
-//    }
     return $data[0];
 }

@@ -5,9 +5,7 @@
  */
 include './services/dao.php';
 
-
 session_start();
-
 
 $username = $_POST["username"];
 $password = $_POST["pwd"];
