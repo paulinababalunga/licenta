@@ -39,25 +39,25 @@
             var editSidebarContent =
                 "<div id='editing' class='menu-content'>\
                     <h1>Editare</h1>\
+                    <span class='editing-help'>Selectati straturile pentru editare.</span>\
                     <div class='template-picker'>\
-                        <div class='item'></div>\
-                        <div class='item'></div>\
                     </div>\
                     <div class='attribute-editor'>\
                         <h1>Atribute</h1>\
                         <div class='attribute-form'>\
                             <div>\
-                                <label>Nume:</label><input type='text'/>\
+                                <label>Nume:</label><input type='text' id='feature-name'/>\
                             </div>\
                             <div>\
-                                <label>Descriere:</label><textarea></textarea>\
+                                <label>Descriere:</label><textarea id='feature-desc'></textarea>\
                             </div>\
                         </div>\
                         <div class='attribute-buttons'>\
-                            <button>Salveaza</button>\
-                            <button>Renunta</button>\
+                            <button class='save-feature'>Salveaza</button>\
+                            <button class='cancel-edit'>Renunta</button>\
                         </div>\
                     </div>\
+                    <div class='save-status'></div>\
                 </div>";
 
             //adaugare buton de editare in toolbar
@@ -88,6 +88,68 @@
                     self.currentDrawer.disable();
                 }
                 self.hideEditControl();
+            });
+
+            map.on('draw:created', function (e) {
+                var i = 0;
+                self.featureGroup.addLayer(self.currentFeature = e.layer);
+
+                self.currentFeature.layerIndex = self.selectedTemplate.data("layer-index");
+
+                self.selectedTemplate.removeClass("selected");
+                self.selectedTemplate = null;
+
+                $(".attribute-editor").show();
+                $("#feature-name").focus();
+            });
+
+            map.on('draw:edited', function (e) {
+                //layers.drawnItems.wfstSave(e.layers);
+            });
+
+            map.on('draw:deleted', function(e){
+                self.featureGroup.removeLayer(e.layer);
+                var features = e.layers;
+//                features.eachLayer(function (layer) {
+//                    console.log("removing", layer);
+//                    layers.drawnItems.wfstRemove(layer);
+//                });
+                //layers.drawnItems.removeLayer(features);
+            });
+
+            $('.save-feature').click(function(){
+                var name = $('#feature-name').val();
+                var desc = $('#feature-desc').val();
+
+                var wfsLayer = app.layers[self.currentFeature.layerIndex];
+
+                self.currentFeature.feature = {
+                    properties:{
+                        "nume": name,
+                        "descriere": desc
+                    }
+                };
+
+                $(".save-status").removeClass("error").html("In curs de salvare ...");
+                wfsLayer.wfstAdd( self.currentFeature, {
+                    success: function(){
+                        $(".save-status").html("Operatie reusita");
+
+                        $(".attribute-editor").hide();
+                    },
+                    failure:function(){
+                        $(".save-status").addClass("error").html("Operatie esuata");
+                    }
+                });
+            });
+
+            $('.cancel-edit').click(function(){
+                if( self.currentFeature) {
+                    self.featureGroup.removeLayer(self.currentFeature);
+                    $("#feature-name").val("");
+                    $("#feature-desc").val("");
+                    $(".attribute-editor").hide();
+                }
             });
 
             console.log("Editing initialized");
@@ -126,9 +188,13 @@
             });
         },
 
-        itemTemplate: "<div class='item'  data-config-index='{{index}}'><img src='{{url}}' alt='{{title}}' width='{{width}}' height='{{height}}' /><span>{{title}}</span></div>",
+        itemTemplate: "<div class='item'  data-config-index='{{configIndex}}' data-layer-index='{{layerIndex}}'><img src='{{url}}' alt='{{title}}' width='{{width}}' height='{{height}}' /><span>{{title}}</span></div>",
 
         currentConfigs:[],
+
+        selectedTemplate: null,
+
+        currentFeature: null,
 
         /**
          * Refresh template picker.
@@ -138,13 +204,16 @@
             var tp = $(".template-picker");
             tp.empty();
 
+            self.currentConfigs = [];
+
             var cfgIndex = 0;
             $.each(app.layers, function(index, layer){
                 var layerConfig = L.LayerBuilder.layerConfigMapping[layer.options.featureNS+":"+layer.options.featureType];
                 if( layerConfig){
                     self.currentConfigs[cfgIndex] = layerConfig;
                     var content = Mustache.render(self.itemTemplate, {
-                        index: cfgIndex,
+                        layerIndex: index,
+                        configIndex: cfgIndex,
                         url: layerConfig.icon.url,
                         width: layerConfig.icon.size[0],
                         height: layerConfig.icon.size[1],
@@ -155,14 +224,19 @@
                 }
             });
 
-            var selected = null;
+            if( self.currentConfigs.length==0){
+                $(".editing-help").show();
+            }else{
+                $(".editing-help").hide();
+            }
+
             $(".template-picker .item").click(function(event){
                 var current = $(this);
-
+                var selected = self.selectedTemplate;
                 if(selected && current.data("config-index") == selected.data("config-index")){
                     self.deactivateAddFeature();
                     selected.removeClass("selected");
-                    selected = null;
+                    self.selectedTemplate = null;
                 }else{
                     if( selected){
                         self.deactivateAddFeature();
@@ -171,7 +245,7 @@
                     var layerConfig = self.currentConfigs[current.data("config-index")];
                     self.activateAddFeature(layerConfig);
                     current.addClass("selected");
-                    selected = current;
+                    self.selectedTemplate = current;
                 }
                 event.stopPropagation();
             });

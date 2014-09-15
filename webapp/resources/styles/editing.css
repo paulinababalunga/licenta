@@ -29,6 +29,7 @@
 .attribute-editor{
     clear: both;
     padding-top: 20px;
+    display: none;
 }
 
 .attribute-editor .attribute-form{

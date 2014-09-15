@@ -357,3 +357,11 @@ input::-webkit-input-placeholder {
     border: none;
     background: none;
 }
+
+.error{
+    color: red;
+}
+
+.save-status{
+    clear: both;
+}
