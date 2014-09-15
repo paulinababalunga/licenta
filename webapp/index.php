@@ -2,11 +2,11 @@
 include './layers.php';
 include './access.php';
 
-if (isset($_REQUEST['test'])){
-    include './services/dao.php';
-    $user = new User();
-    $user->username = "developer";
-}
+//if (isset($_REQUEST['test'])){
+//    include './services/dao.php';
+//    $user = new User();
+//    $user->username = "developer";
+//}
 
 ?>
 <html>
@@ -60,12 +60,7 @@ if (isset($_REQUEST['test'])){
 
         <div id="details-transport" class="menu-content" style="display: none">
             <h1>Transport</h1>
-            <div id="info-content" >
-<!--                <p>Selecteaza traseul:</p>-->
-<!--                <form id="reset">-->
-<!--                    <input type="button" id="btnReset" value="Reseteaza">-->
-<!--                </form>-->
-            </div>
+            <div id="info-content"></div>
         </div>
 
         <div id="details-user"  class="menu-content" style="display: none">

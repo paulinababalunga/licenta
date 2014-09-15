@@ -79,7 +79,7 @@ L.LayerBuilder = {
         var featureNamespace = layerConfig.name.split(':')[0];
         var featureType = layerConfig.name.split(':')[1];
 
-        var layer = L.wfst(null, {
+        var wfsLayer = L.wfst(null, {
             // Required
             version: "1.0.0",
             url: url,
@@ -103,20 +103,14 @@ L.LayerBuilder = {
                 var template = layerConfig.popup.template;
                 var output = Mustache.render(template, feature.properties);
                 layer.bindPopup(output);
-
-    //                layer.on({
-    //                    //"mouseover",
-    //                    //"mouseout"
-    //                    "click": function(e){
-    //                        app.map.fitBounds(e.target.getBounds());
-    //                    }
-    //                });
+                layer.wfsLayer = wfsLayer;
+                layer.feature = feature;
             }
         });
 
         this.layerConfigMapping[layerConfig.name] = layerConfig;
 
-        return layer;
+        return wfsLayer;
     },
 
     layerConfigMapping:[]

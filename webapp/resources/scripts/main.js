@@ -34,21 +34,10 @@ app = {
 //            map.off('dragstart', lc.stopFollowing);
 //        });
 
-//        new L.Control.LayersExt(baseMaps, {}, {
-//            layers: config.layers
-//        }).addTo(map);
-
-
-        //L.Control.Geocoder();
-        /*L.Control.geocoder({
-         position: "topleft"
-         }).addTo(map);*/
-
 
         var r = L.Routing.control({
             geocoder: L.Control.Geocoder.nominatim()
         }).addTo(map);
-
         $(".leaflet-routing-container").appendTo("#info-content");
 
 
@@ -60,7 +49,6 @@ app = {
         new L.Control.CategorizedLayers(config.baseLayers, config.overlayLayers, {
             collapsed: false
         }).addTo(map);
-
         $(".leaflet-control-layers-expanded").appendTo("#layers-content");
 
         //eveniment la afisarea unui strat
@@ -84,9 +72,7 @@ app = {
         map.addControl(aboutSidebar);
 
 
-
-        L.easyButton('about-icon fa-info',
-            function(){
+        L.easyButton('about-icon fa-info', function(){
                 aboutSidebar.toggle();
             }, 'Despre',map);
 

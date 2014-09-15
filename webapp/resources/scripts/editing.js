@@ -104,17 +104,26 @@
             });
 
             map.on('draw:edited', function (e) {
-                //layers.drawnItems.wfstSave(e.layers);
+                e.layers.eachLayer(function (layer) {
+                    console.log("removing", layer);
+
+                    var wfsLayer = layer.wfsLayer;
+                    if( wfsLayer){
+                        wfsLayer.wfstSave(layer);
+                    }
+                });
             });
 
             map.on('draw:deleted', function(e){
                 self.featureGroup.removeLayer(e.layer);
-                var features = e.layers;
-//                features.eachLayer(function (layer) {
-//                    console.log("removing", layer);
-//                    layers.drawnItems.wfstRemove(layer);
-//                });
-                //layers.drawnItems.removeLayer(features);
+                e.layers.eachLayer(function (layer) {
+                    console.log("removing", layer);
+
+                    var wfsLayer = layer.wfsLayer;
+                    if( wfsLayer){
+                        wfsLayer.wfstRemove(layer);
+                    }
+                });
             });
 
             $('.save-feature').click(function(){
